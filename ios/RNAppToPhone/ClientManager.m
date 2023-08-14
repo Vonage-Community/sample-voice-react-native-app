@@ -20,6 +20,7 @@ RCT_EXPORT_MODULE();
 }
 
 - (void)setupClient {
+  VGVoiceClient.isUsingCallKit = NO;
   self.client = [[VGVoiceClient alloc] init];
   VGClientConfig *config = [[VGClientConfig alloc] initWithRegion:VGConfigRegionUS];
   [self.client setConfig:config];
