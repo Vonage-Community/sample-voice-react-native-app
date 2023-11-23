@@ -22,8 +22,7 @@ public class ClientManager extends ReactContextBaseJavaModule {
 
     ClientManager(ReactApplicationContext context) {
         super(context);
-        setDefaultLoggingLevel(LoggingLevel.Verbose);
-        client = VoiceClientKt.VoiceClient(context);
+        client = VoiceClient.createClient(context);
         client.setConfig(new VGClientConfig((ClientConfigRegion.US)));
         eventEmitter = new EventEmitter(context);
     }
@@ -73,7 +72,7 @@ public class ClientManager extends ReactContextBaseJavaModule {
     public void endCall() {
         if (callID != null) {
             client.hangup(callID, (error)-> {
-                if (error != null) {
+                if (error == null) {
                     this.sendEvent("onCallStateChange", "state", "Idle");
                 }
                 return null;
